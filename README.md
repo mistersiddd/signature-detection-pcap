@@ -10,5 +10,6 @@ chmod +x dynamic.sh
 sudo dynamic.sh
 ```
 # To run detection from pcap
-
+```
 python3 sig_det.py <FILE.pcap>
+```
