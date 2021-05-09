@@ -3,8 +3,8 @@ from collections import defaultdict
 from scapy.all import *
 import sys 
 import json
-
 import datetime
+from elasticsearch import Elasticsearch
 
 def main():
     data = str(sys.argv[1])
@@ -15,6 +15,11 @@ def main():
     sessions = pcap_data.sessions()
     port_map = []
     flag_1=flag_3=flag_2=flag_4=0
+    es = Elasticsearch(
+    ['localhost'],
+    # http_auth=("elastic", "<password>")
+    port=9200)
+    i=0
     for session in sessions:
         for packet in sessions[session]:     
             try:
@@ -36,7 +41,9 @@ def main():
                             'Tac' : 'Remote System Discovery',
                             'Name' : name
                         })
-                    json_print(port_map)
+                    i+=1
+                    print('sid')
+                    json_print(port_map,es,1,datetime_time)
                     flag_1=1
                 elif signature2_re is not None and flag_1 == 1 and flag_2==0:
                     attacker_src_prt=packet[TCP].dport
@@ -52,7 +59,8 @@ def main():
                             'Tac' : 'Modify Parameter',
                             'Name' : name
                         })
-                    json_print(port_map)
+                    i+=1
+                    json_print(port_map,es,2,datetime_time)
                     flag_2=1
                 elif signature3_re is not None and flag_3==0:               #find unitID detect
                     attacker_src_prt = packet[TCP].dport
@@ -65,10 +73,11 @@ def main():
                             'attip' : attacker_ip,
                             'vtcip' : victim_ip,
                             'Time_stamp' : datetime_time,
-                            'Tac' : 'Remote System Discovery',
+                            'Tac' : 'Remote System DiscoveryUID',
                             'Name' : name
                         })
-                    json_print(port_map)
+                    i+=1
+                    json_print(port_map,es,3,datetime_time)
                     flag_3=1
                 elif signature4_re is not None and flag_4==0:              #plcscan working
                     attacker_src_prt = packet[TCP].dport
@@ -84,12 +93,16 @@ def main():
                             'Tac' : 'Remote System Information Discovery',
                             'Name' : name
                         })
-                    json_print(port_map)
+                    i+=1
+                    json_print(port_map,es,4,datetime_time)
                     flag_4=1
             except:
                 pass
-def json_print(port_map):
+def json_print(port_map,es,i,datetime_time):
     final_json = json.dumps(port_map, indent = 4)
-    print(final_json)
+    y=json.loads(final_json)
+    res = es.index(index='attack', id=datetime_time,body=y[0])
+    print(res['result'])
+
 if __name__=="__main__":
     main()
