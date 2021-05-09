@@ -2,11 +2,14 @@
  
 A signature based detection for ICS attacks from a pcap file
 
-## To run
-
-Change the name of the variable 'data' to the location of the pcap file.
+## To run dynamic detection
 ```
 git clone https://github.com/mistersiddd/signature-detection-pcap.git
 cd signature-detection-pcap
-python3 sig_det.py filename.pcap
+chmod +x dynamic.sh
+sudo dynamic.sh
+```
+# To run detection from pcap
+```
+python3 sig_det.py <FILE.pcap>
 ```
