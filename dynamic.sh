@@ -7,8 +7,7 @@ do
     else 
     a=$((VARIABLE-1))
     echo "$a"
-    python3 sig_det.py $a.pcap
-    sleep 20 &
+    python3 sig_det.py $a.pcap &
     gtimeout 20 tcpdump -i en0 -w $VARIABLE.pcap
     fi
 done
