@@ -101,7 +101,7 @@ def main():
 def json_print(port_map,es,i,datetime_time):
     final_json = json.dumps(port_map, indent = 4)
     y=json.loads(final_json)
-    res = es.index(index='attack', id=datetime_time,body=y[0])
+    res = es.index(index='attack', body=y[0])
     print(res['result'])
 
 if __name__=="__main__":
