@@ -35,11 +35,12 @@ def main():
                     datetime_time = str(datetime.datetime.fromtimestamp(packet.time))
                     port_map.append({
                             'Port' : attacker_src_prt,
-                            'attip' : attacker_ip,
-                            'vtcip' : victim_ip,
-                            'Time_stamp' : datetime_time,
-                            'Tac' : 'Remote System Discovery',
-                            'Name' : name
+                            'SrcIP' : attacker_ip,
+                            'DestIP' : victim_ip,
+                            'TimeStamp' : datetime_time,
+                            'Technique' : 'Remote System Discovery',
+                            'Tactics' : 'Discovery',
+                            'Log' : name
                         })
                     i+=1
                     print('sid')
@@ -53,11 +54,12 @@ def main():
                     port_map.clear()
                     port_map.append({
                             'Port' : attacker_src_prt,
-                            'attip' : attacker_ip,
-                            'vtcip' : victim_ip,
-                            'Time_stamp' : datetime_time,
-                            'Tac' : 'Modify Parameter',
-                            'Name' : name
+                            'SrcIP' : attacker_ip,
+                            'DestIP' : victim_ip,
+                            'TimeStamp' : datetime_time,
+                            'Technique' : 'Modify Parameter',
+                            'Tactics' : 'Discovery',
+                            'Log' : name
                         })
                     i+=1
                     json_print(port_map,es,2,datetime_time)
@@ -70,11 +72,12 @@ def main():
                     port_map.clear()
                     port_map.append({
                             'Port' : attacker_src_prt,
-                            'attip' : attacker_ip,
-                            'vtcip' : victim_ip,
-                            'Time_stamp' : datetime_time,
-                            'Tac' : 'Remote System DiscoveryUID',
-                            'Name' : name
+                            'SrcIP' : attacker_ip,
+                            'DestIP' : victim_ip,
+                            'TimeStamp' : datetime_time,
+                            'Technique' : 'Remote System Discovery',
+                            'Tactics' : 'Discovery',
+                            'Log' : name
                         })
                     i+=1
                     json_print(port_map,es,3,datetime_time)
@@ -87,11 +90,12 @@ def main():
                     port_map.clear()
                     port_map.append({
                             'Port' : attacker_src_prt,
-                            'attip' : attacker_ip,
-                            'vtcip' : victim_ip,
-                            'Time_stamp' : datetime_time,
-                            'Tac' : 'Remote System Information Discovery',
-                            'Name' : name
+                            'SrcIP' : attacker_ip,
+                            'DestIP' : victim_ip,
+                            'TimeStamp' : datetime_time,
+                            'Technique' : 'Remote System Information Discovery',
+                            'Tactics' : 'Discovery',
+                            'Log' : name
                         })
                     i+=1
                     json_print(port_map,es,4,datetime_time)
