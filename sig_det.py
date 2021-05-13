@@ -5,6 +5,7 @@ import sys
 import json
 import datetime
 from elasticsearch import Elasticsearch
+import paho.mqtt.publish as publish
 
 def main():
     data = str(sys.argv[1])
@@ -58,7 +59,7 @@ def main():
                             'DestIP' : victim_ip,
                             'TimeStamp' : datetime_time,
                             'Technique' : 'Modify Parameter',
-                            'Tactics' : 'Discovery',
+                            'Tactics' : 'Impair Process Control',
                             'Log' : name
                         })
                     i+=1
@@ -107,6 +108,7 @@ def json_print(port_map,es,i,datetime_time):
     y=json.loads(final_json)
     res = es.index(index='attack', body=y[0])
     print(res['result'])
+    publish.single("ics", str(y), hostname="test.mosquitto.org")
 
 if __name__=="__main__":
     main()
