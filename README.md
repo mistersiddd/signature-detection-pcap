@@ -1,6 +1,6 @@
 # Signature Detection from PCAP
  
-A signature based detection for ICS attacks from a pcap file
+A signature based detection for ICS attacks from a pcap file. 
 
 ## To run dynamic detection
 ```
@@ -13,5 +13,5 @@ Note: Linux users change 'gtimeout' to 'timeout' in dynamic.sh
 
 # To run detection from pcap
 ```
-python3 sig_det.py <FILE.pcap>
+python3 signature_detection.py <FILE.pcap>
 ```
